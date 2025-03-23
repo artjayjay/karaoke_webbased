@@ -1,0 +1,170 @@
+<!-- //////////////// settings content ////////////// -->
+<div HTMLINCLUDE="settingstabdesignid" class="displaynone">
+  <h2>Difficulty</h2>
+  <div class="flexbox flexdirec-row">
+    <label for="myradioid1" class="radiobutton1">
+      <input
+        type="radio"
+        name="radioname1"
+        id="myradioid1"
+        value="easy"
+        class="radio__input"
+      />
+      <div class="radio__radio"></div>
+      Easy
+    </label>
+    <label for="myradioid2" class="radiobutton1">
+      <input
+        type="radio"
+        name="radioname1"
+        id="myradioid2"
+        value="normal"
+        class="radio__input"
+        checked="checked"
+      />
+      <div class="radio__radio"></div>
+      Normal
+    </label>
+    <label for="myradioid3" class="radiobutton1">
+      <input
+        type="radio"
+        name="radioname1"
+        id="myradioid3"
+        value="medium"
+        class="radio__input"
+      />
+      <div class="radio__radio"></div>
+      Medium
+    </label>
+    <label for="myradioid4" class="radiobutton1">
+      <input
+        type="radio"
+        name="radioname1"
+        id="myradioid4"
+        value="hard"
+        class="radio__input"
+      />
+      <div class="radio__radio"></div>
+      Hard
+    </label>
+    <label for="myradioid5" class="radiobutton1">
+      <input
+        type="radio"
+        name="radioname1"
+        id="myradioid5"
+        value="expert"
+        class="radio__input"
+      />
+      <div class="radio__radio"></div>
+      Expert
+    </label>
+  </div>
+  <div class="flexbox flexdirec-row">
+    <label class="toggle" for="showpopupscoretoggleid">
+      <input
+        class="toggle__input"
+        name=""
+        type="checkbox"
+        id="showpopupscoretoggleid"
+      />
+      <div class="toggle__fill"></div>
+    </label>
+  </div>
+  <p>Show PopUp Score</p>
+  <div class="flexbox flexdirec-row">
+    <label class="toggle" for="showscoretoggleid">
+      <input
+        class="toggle__input"
+        name=""
+        type="checkbox"
+        id="showscoretoggleid"
+      />
+      <div class="toggle__fill"></div>
+    </label>
+  </div>
+  <p>Show Score</p>
+  <div class="flexbox flexdirec-row">
+    <label class="toggle" for="shownametoggleid">
+      <input
+        class="toggle__input"
+        name=""
+        type="checkbox"
+        id="shownametoggleid"
+      />
+      <div class="toggle__fill"></div>
+    </label>
+  </div>
+  <p>Show Singer's Name</p>
+  <br />
+  <h4>Change Score Video Background</h4>
+  <div class="flexbox fullwidth">
+    <button
+      class="btn btn-primary"
+      filegetterbtn="filegetter2"
+      style="width: 15%"
+    >
+      Upload Media
+    </button>
+
+    <input
+      type="file"
+      id="filegetter2"
+      displayvalue="fileNameDisplay2"
+      name="file"
+      style="display: none"
+    />
+  </div>
+  <p id="fileNameDisplay2">No file selected.</p>
+  <br />
+  <h4>Change Applause Sound</h4>
+  <div class="flexbox fullwidth">
+    <button
+      class="btn btn-primary"
+      filegetterbtn="filegetter3"
+      style="width: 15%"
+    >
+      Upload Media
+    </button>
+
+    <input
+      type="file"
+      id="filegetter3"
+      name="file"
+      style="display: none"
+      displayvalue="fileNameDisplay3"
+    />
+  </div>
+  <p id="fileNameDisplay3">No file selected.</p>
+  <br />
+  <h4>Server Name's</h4>
+  <div class="flexbox flexdirec-col fullwidth">
+    <input
+      id="mainservernameid"
+      type="text"
+      class="inputtextdes1 fullwidth"
+      style="width: 15%"
+      placeholder="Main Server"
+    />
+    <br />
+    <input
+      id="karaokeservernameid"
+      type="text"
+      class="inputtextdes1 fullwidth"
+      style="width: 15%"
+      placeholder="karaoke Server"
+    />
+  </div>
+  <br />
+  <h4>Save Settings</h4>
+  <br />
+  <div class="flexbox flexdirec-row">
+    <button
+      class="btn btn-primary"
+      popupconfirm="updatesongsettings"
+      style="width: 20%"
+    >
+      Save Settings
+    </button>
+  </div>
+</div>
+<!-- //////////////////////////////////////////////// -->

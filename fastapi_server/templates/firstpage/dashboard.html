@@ -1,0 +1,169 @@
+<!-- ///////// dashboard content /////////// -->
+<div HTMLINCLUDE="dashboardtabdesignid" class="dashboardtabdesignclass">
+  <article class="articledashboard1">
+    <h1>Karaoke</h1>
+    <h4>currently playing</h4>
+    <p id="nameofthesongid">name of the song</p>
+  </article>
+  <div class="fullwidth flexbox flexdirec-row">
+    <input
+      type="text"
+      class="inputtextdes1"
+      placeholder="Search Song ID, Song, Genre, Artist or Album"
+      style="width: 50%"
+      id="inputsearchid"
+    />
+  </div>
+  <div class="fullwidth flexbox flexdirec-row">
+    <button
+      id="searchbtn"
+      class="btn btn-primary open-modal"
+      data-modal="myModal1"
+      style="width: 188px; margin-top: 20px"
+    >
+      Search
+    </button>
+
+    <!-- //////////////// search songs modal //////////////////// -->
+    <div id="myModal1" class="modal1">
+      <div class="modal-content" style="width: 60%; margin-bottom: 50px">
+        <span class="close">&times;</span>
+        <div class="flexbox flexdirec-col">
+          <form onsubmit="return false">
+            <fieldset>
+              <legend>Queue Data</legend>
+              <div class="flexbox flexdirec-row">
+                <input
+                  type="text"
+                  class="inputtextdes1 fullwidth"
+                  placeholder="SONG NO."
+                  id="addqueuesongnoid"
+                />
+              </div>
+              <div class="flexbox flexdirec-row">
+                <input
+                  type="text"
+                  class="inputtextdes1 fullwidth"
+                  placeholder="SINGER NAME"
+                  id="addqueuesingernameid"
+                />
+              </div>
+            </fieldset>
+          </form>
+          <div class="table-container">
+            <table id="data-table3">
+              <thead>
+                <tr>
+                  <th>Song No.</th>
+                  <th>Song Name</th>
+                  <th>Genre</th>
+                  <th>Artist</th>
+                  <th>Album</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rows will be populated here by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+          <div id="paginationbtns3" class="pagination">
+            <button class="btn btn-primary prev-page" style="width: 130px">
+              Previous
+            </button>
+            <span class="page-info">Page 1 of 3</span>
+            <button class="btn btn-primary next-page" style="width: 130px">
+              Next
+            </button>
+          </div>
+          <br />
+          <button
+            class="btn btn-primary"
+            popupconfirm="addsongtoqueue"
+            style="width: 180px"
+          >
+            ADD TO QUEUE
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- //////////////////////////////////////////////////// -->
+  </div>
+  <div class="fullwidth flexbox flexdirec-col">
+    <h4 style="width: 55%; text-align: left">QUEUE TABLE</h4>
+    <div class="table-container">
+      <table id="data-table1">
+        <thead>
+          <tr>
+            <th>Queue No.</th>
+            <th>Song Name</th>
+            <th>Genre</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Singer Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be populated here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+    <div id="paginationbtns1" class="pagination">
+      <button class="btn btn-primary prev-page" style="width: 130px">
+        Previous
+      </button>
+      <span class="page-info">Page 1 of 3</span>
+      <button class="btn btn-primary next-page" style="width: 130px">
+        Next
+      </button>
+    </div>
+  </div>
+
+  <!-- /////////// for edit queue modal /////////////-->
+  <div id="myModal2" class="modal1">
+    <div class="modal-content" style="width: 30%; margin-bottom: 50px">
+      <span class="close">&times;</span>
+      <div class="flexbox flexdirec-col">
+        <form onsubmit="return false">
+          <fieldset>
+            <legend>Queue Data</legend>
+            <div class="flexbox flexdirec-row">
+              <input
+                type="text"
+                class="inputtextdes1 fullwidth"
+                placeholder="QUEUE NO."
+                id="editqueuenoid"
+              />
+            </div>
+            <div class="flexbox flexdirec-row">
+              <input
+                type="text"
+                class="inputtextdes1 fullwidth"
+                placeholder="SINGER NAME"
+                id="editqueuesingersnameid"
+              />
+            </div>
+          </fieldset>
+        </form>
+        <button
+          class="btn btn-primary"
+          popupconfirm="savesongqueue"
+          style="width: 180px"
+        >
+          SAVE
+        </button>
+        <br />
+        <button
+          class="btn btn-primary"
+          popupconfirm="deletesongqueue"
+          style="width: 180px"
+        >
+          DELETE
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- //////////////////////////////////////////// -->
+</div>

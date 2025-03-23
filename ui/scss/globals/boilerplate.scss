@@ -1,0 +1,53 @@
+@use "../util";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: util.$font1;
+}
+
+// *:not(ul):not(li) {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+body {
+  font-family: util.$font1;
+}
+
+.displaynone {
+  display: none;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.fullheight {
+  height: 100%;
+}
+
+.fullheightvh {
+  height: 100vh;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexdirec-col {
+  flex-direction: column;
+}
+.flexdirec-row {
+  flex-direction: row;
+}

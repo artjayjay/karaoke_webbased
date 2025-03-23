@@ -1,0 +1,57 @@
+//////////// for toggle design ////////////
+.toggle {
+  --width: 50px;
+  --height: calc(var(--width) / 2);
+  --border-radius: calc(var(--height) / 2);
+
+  display: inline-block;
+  cursor: pointer;
+
+  .toggle__input {
+    display: none;
+
+    &:checked ~ .toggle__fill {
+      background: purple;
+
+      &::after {
+        transform: translateX(var(--height));
+      }
+    }
+
+    // Disabled state styles
+    &:disabled ~ .toggle__fill {
+      background: #cccccc; // Change background color when disabled
+      cursor: not-allowed; // Change cursor to indicate disabled state
+      opacity: 0.7; // Reduce opacity to visually indicate disabled state
+
+      &::after {
+        background: #eeeeee; // Change the slider color when disabled
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); // Reduce shadow intensity
+      }
+    }
+  }
+
+  .toggle__fill {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
+    background: #dddddd;
+    transition: background 0.2s;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 2px 2px 6px #dddddd;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: var(--height);
+      width: var(--height);
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+      border-radius: var(--border-radius);
+      transition: transform 0.2s;
+    }
+  }
+}
+/// ///////////////////////////////////////

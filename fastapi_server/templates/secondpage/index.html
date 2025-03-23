@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karaoke Player</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}" />
+    <script src="{{ url_for('static', path='/sweetalert2-11.17.2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ url_for('static', path='/axios.min.js') }}"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='/sweetalert2-11.17.2/dist/sweetalert2.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='/fontawesome-free-6.7.2-web/css/all.min.css') }}"
+    />
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden; /* Prevent scrollbars */
+      }
+
+      h1 {
+        text-align: center;
+      }
+      #media-container {
+        max-height: 80%;
+        border: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        position: relative;
+      }
+      #media-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+      button {
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        overflow: hidden;
+      }
+      /* Dynamic media container for modal background */
+      #modalMediaContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the media covers the entire modal */
+        z-index: -1; /* Place the media behind the modal content */
+        opacity: 1; /* Adjust opacity for better visibility of the modal content */
+      }
+      .modal-content {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.7
+        ); /* Semi-transparent black background */
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        max-width: 600px;
+        width: 90%;
+        position: relative; /* Ensure the content is above the media */
+        z-index: 1;
+      }
+      .modal-content h2 {
+        margin: 0;
+        font-size: 36px;
+        color: #ffcc00; /* Yellow color for the score */
+      }
+      .modal-content p {
+        margin: 10px 0;
+      }
+      .modal-content button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #ffcc00;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .karaokeplayerbtns button {
+        width: 30%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Karaoke Player</h1>
+
+    <!-- Video Player -->
+    <div id="media-container">
+      <video id="myVideo" controls>
+        <source src="" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Buttons -->
+    <div class="karaokeplayerbtns flexbox flexdirec-row">
+      <button class="btn btn-primary" id="startButton">Start Karaoke</button>
+      <button class="btn btn-primary" onclick="stopVideo()">Stop</button>
+      <button class="btn btn-primary" onclick="loadVideo()">Reload</button>
+      <button class="btn btn-primary" onclick="next()">Next</button>
+    </div>
+
+    <!-- Modal for Score Display -->
+    <div id="scoreModal" class="modal">
+      <!-- Dynamic media container for modal background -->
+      <div id="modalMediaContainer"></div>
+      <div class="modal-content">
+        <h2>Congratulations!</h2>
+        <h2>Your Score: <span id="modal-score-value"></span></h2>
+        <p id="modal-singers-name" style="display: none">
+          Singer's Name: <span id="modal-singers-name-value"></span>
+        </p>
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
+
+    <script>
+      let mainserver;
+      let mediaRecorder;
+      let recordedChunks = [];
+      let settings = {}; // Global variable to store settings
+      let shouldUploadAudio = true; // Flag to control whether to upload audio
+
+      // Function to fetch settings from the server
+      async function fetchSettings() {
+        try {
+          const response = await axios.get("/api/karaokeplayer/settings");
+          settings = response.data;
+          if (settings.mainserver && settings.karaokeserver) {
+            mainserver = settings.mainserver;
+          }
+        } catch (error) {
+          console.error("Error fetching settings:", error);
+        }
+      }
+
+      // Function to start recording audio
+      async function startRecording() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+              recordedChunks.push(event.data);
+            }
+          };
+          mediaRecorder.onstop = () => {
+            if (shouldUploadAudio) {
+              uploadAudio(); // Only upload audio if the flag is true
+            }
+          };
+          mediaRecorder.start();
+        } catch (error) {
+          console.error("Error starting recording:", error);
+        }
+      }
+
+      // Function to stop recording audio
+      function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+          mediaRecorder.stop();
+        }
+      }
+
+      // Function to stop the video, recording, and delete the queue
+      async function stopVideo() {
+        socket.emit("send-client-message", {
+          recipient_username: mainserver,
+          message: "reloadqueuetablefunction",
+        });
+        shouldUploadAudio = false; // Disable audio upload
+        const videoElement = document.getElementById("myVideo");
+        videoElement.pause(); // Pause the video
+        stopRecording(); // Stop the recording and prevent upload
+
+        try {
+          // Call the /deletequeue endpoint to delete the queue
+          const response = await axios.delete("/api/karaokeplayer/deletequeue");
+          console.log("Queue deleted:", response.data); // Debugging
+        } catch (error) {
+          console.error("Error deleting queue:", error);
+        }
+      }
+
+      // Function to upload recorded audio to the server
+      async function uploadAudio() {
+        if (recordedChunks.length === 0) {
+          console.error("No audio recorded.");
+          return;
+        }
+
+        const blob = new Blob(recordedChunks, { type: "audio/wav" });
+        const formData = new FormData();
+        formData.append("file", blob, "recording.wav");
+
+        try {
+          const response = await axios.post(
+            "/api/karaokeplayer/result",
+            formData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+          socket.emit("send-client-message", {
+            recipient_username: mainserver,
+            message: "reloadqueuetablefunction",
+          });
+          await displayScore(response.data); // Display the score in the modal
+        } catch (error) {
+          console.error("Error uploading audio:", error);
+        } finally {
+          recordedChunks = []; // Clear recorded chunks
+        }
+      }
+
+      // Function to display the score in the modal
+      async function displayScore(data) {
+        const modal = document.getElementById("scoreModal");
+        const modalScoreValue = document.getElementById("modal-score-value");
+        const modalSingersName = document.getElementById("modal-singers-name");
+        const modalSingersNameValue = document.getElementById(
+          "modal-singers-name-value"
+        );
+        const modalMediaContainer = document.getElementById(
+          "modalMediaContainer"
+        );
+
+        // Update modal content
+        if (settings.showscore) {
+          modalScoreValue.textContent =
+            data.score === "N/A" ? "N/A" : data.score.toFixed(2);
+        } else {
+          modalScoreValue.textContent = "N/A"; // Hide score if disabled
+        }
+
+        // Show or hide the singer's name based on settings
+        if (settings.showsingersname) {
+          modalSingersName.style.display = "block"; // Show the singer's name
+          modalSingersNameValue.textContent = data.singersname || "N/A"; // Use the singer's name from the response
+        } else {
+          modalSingersName.style.display = "none"; // Hide the singer's name
+        }
+
+        // Load the dynamic media (image or video) from the /scorevideo endpoint
+        try {
+          const response = await axios.get("/api/karaokeplayer/scorevideo", {
+            responseType: "blob",
+          });
+          const mediaUrl = URL.createObjectURL(response.data);
+
+          // Clear the container
+          modalMediaContainer.innerHTML = "";
+
+          // Extract the file extension from the URL
+          const fileExtension = mediaUrl.split(".").pop().toLowerCase();
+
+          // Check if the media is an image or video based on the file extension
+          if (
+            fileExtension === "mp4" ||
+            fileExtension === "webm" ||
+            fileExtension === "ogg"
+          ) {
+            // If it's a video, create a <video> element
+            const videoElement = document.createElement("video");
+            videoElement.src = mediaUrl;
+            videoElement.autoplay = true;
+            videoElement.loop = true;
+            videoElement.muted = true;
+            videoElement.style.width = "100%";
+            videoElement.style.height = "100%";
+            videoElement.style.objectFit = "cover";
+            modalMediaContainer.appendChild(videoElement);
+          } else if (
+            fileExtension === "jpg" ||
+            fileExtension === "jpeg" ||
+            fileExtension === "png" ||
+            fileExtension === "gif"
+          ) {
+            // If it's an image, create an <img> element
+            const imgElement = document.createElement("img");
+            imgElement.src = mediaUrl;
+            imgElement.style.width = "100%";
+            imgElement.style.height = "100%";
+            imgElement.style.objectFit = "cover";
+            modalMediaContainer.appendChild(imgElement);
+          } else {
+            console.warn("Unknown file extension. Assuming it is an image.");
+            const imgElement = document.createElement("img");
+            imgElement.src = mediaUrl;
+            imgElement.style.width = "100%";
+            imgElement.style.height = "100%";
+            imgElement.style.objectFit = "cover";
+            modalMediaContainer.appendChild(imgElement);
+          }
+        } catch (error) {
+          console.error("Error loading score media:", error);
+        }
+
+        // Show the modal
+        modal.style.display = "flex";
+
+        // Play applause sound if enabled
+        if (settings.showpopupscore) {
+          await playApplause();
+        }
+      }
+
+      // Function to play the applause sound
+      async function playApplause() {
+        try {
+          const response = await axios.get("/api/karaokeplayer/applause", {
+            responseType: "blob",
+          });
+          const audioElement = new Audio(URL.createObjectURL(response.data));
+          audioElement.play(); // Play the applause sound
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            console.log("Applause sound playback is disabled in settings.");
+          } else {
+            console.error("Error playing applause sound:", error);
+          }
+        }
+      }
+
+      // Function to close the modal
+      function closeModal() {
+        const modal = document.getElementById("scoreModal");
+        modal.style.display = "none";
+      }
+
+      // Function to load and play the karaoke video
+      async function loadVideo() {
+        await fetchSettings();
+        try {
+          const response = await axios.get("/api/karaokeplayer/play", {
+            responseType: "blob",
+          });
+          console.log("Video loaded successfully:", response); // Debugging
+          const videoElement = document.getElementById("myVideo");
+          videoElement.src = URL.createObjectURL(response.data);
+
+          // Reset the flag when starting a new recording
+          shouldUploadAudio = true;
+
+          // Start recording when the video starts playing
+          videoElement.onplay = startRecording;
+
+          // Stop recording and upload audio when the video ends
+          videoElement.onended = () => {
+            stopRecording();
+          };
+        } catch (error) {
+          console.error("Error loading video:", error);
+        }
+      }
+
+      // Function to start playback with sound
+      function startPlayback() {
+        const videoElement = document.getElementById("myVideo");
+        videoElement
+          .play() // Start playback with sound
+          .then(() => {
+            console.log("Video playback started successfully."); // Debugging
+          })
+          .catch((error) => {
+            console.error("Error starting playback:", error); // Debugging
+          });
+      }
+
+      // Add event listener to the "Start" button
+      document.getElementById("startButton").addEventListener("click", () => {
+        console.log("Start button clicked."); // Debugging
+        startPlayback(); // Start playback with sound
+      });
+
+      // Automatically load the video and fetch settings when the page loads
+      window.onload = async () => {
+        await fetchSettings(); // Fetch settings first
+        loadVideo(); // Then load the video
+      };
+
+      async function next() {
+        await loadVideo();
+        startPlayback();
+      }
+    </script>
+
+    <script src="{{ url_for('static', path='/socket.io.js') }}"></script>
+    <script src="{{ url_for('static', path='/socketconn.js') }}"></script>
+    <script src="{{ url_for('static', path='/script.js') }}"></script>
+  </body>
+</html>

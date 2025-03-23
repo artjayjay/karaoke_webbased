@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'head/index.html' %}
+  </head>
+  <body>
+    <div class="pagecontainer fullwidth fullheightvh">
+      {% include 'firstpage/tabcontent.html' %}
+      {% include 'firstpage/dashboard.html' %}
+      {% include 'firstpage/songlibrary.html' %}
+      {% include 'firstpage/settings.html' %}
+    </div>
+    <script src="{{ url_for('static', path='/socket.io.js') }}"></script>
+    <script src="{{ url_for('static', path='/socketconn.js') }}"></script>
+    <script src="{{ url_for('static', path='/script.js') }}"></script>
+
+    <script src="{{ url_for('static', path='/contentswitch.js') }}"></script>
+    <script src="{{ url_for('static', path='/modal.js') }}"></script>
+    <script src="{{ url_for('static', path='/popup.js') }}"></script>
+    <script src="{{ url_for('static', path='/dropdown.js') }}"></script>
+    <script src="{{ url_for('static', path='/toggle.js') }}"></script>
+    <script src="{{ url_for('static', path='/table.js') }}"></script>
+    <script src="{{ url_for('static', path='/radiobutton.js') }}"></script>
+    <script src="{{ url_for('static', path='/filegetter.js') }}"></script>
+    <script src="{{ url_for('static', path='/eventlisteners.js') }}"></script>
+    
+    <!-- ///////////////// transactions /////////////// -->
+    <script src="{{ url_for('static', path='/songlibrary.js') }}"></script>
+    <script src="{{ url_for('static', path='/songqueue.js') }}"></script>
+    <script src="{{ url_for('static', path='/songsettings.js') }}"></script>
+    <!-- ////////////////////////////////////////////// -->
+
+    <script src="{{ url_for('static', path='/rendering.js') }}"></script>
+  </body>
+</html>

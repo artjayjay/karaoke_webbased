@@ -1,0 +1,124 @@
+<!-- ////////////// song library manager content ///////////// -->
+<div
+  HTMLINCLUDE="songlibmanagertabdesignid"
+  class="songlibmanagertabclass displaynone"
+>
+  <div class="flexbox flexdirec-row">
+    <form onsubmit="return false">
+      <fieldset>
+        <legend>Song Data</legend>
+        <div class="flexbox flexdirec-row">
+          <input
+            type="text"
+            class="inputtextdes1 fullwidth"
+            placeholder="SONG NO."
+            id="songnoinputid"
+          />
+        </div>
+        <p style="text-align: center">
+          Leave Song ID. Empty if Adding new Song
+        </p>
+
+        <div class="flexbox flexdirec-row">
+          <input
+            type="text"
+            class="inputtextdes1 fullwidth"
+            placeholder="Song Name"
+            id="songnameinputid"
+          />
+        </div>
+
+        <p>Genre</p>
+        <div class="dropdown select-dropdown" id="dropdown3">
+          <div class="dropdown-toggle">
+            <p>Classic</p>
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+          <div class="dropdown-menu">
+            <div>Classic</div>
+            <div>Rock</div>
+            <div>Pop</div>
+            <div>Soul</div>
+          </div>
+        </div>
+
+        <div class="flexbox flexdirec-row">
+          <input
+            type="text"
+            class="inputtextdes1 fullwidth"
+            placeholder="Artist"
+            id="artistinputid"
+          />
+        </div>
+        <div class="flexbox flexdirec-row">
+          <input
+            type="text"
+            class="inputtextdes1 fullwidth"
+            placeholder="Album"
+            id="albuminputid"
+          />
+        </div>
+
+        <button
+          id="filegetter1btn"
+          class="btn btn-primary"
+          filegetterbtn="filegetter1"
+        >
+          ADD FOLDER
+        </button>
+
+        <input
+          type="file"
+          webkitdirectory
+          mozdirectory
+          id="filegetter1"
+          displayvalue="fileNameDisplay"
+          name="file"
+          style="display: none"
+        />
+        <p id="fileNameDisplay">No file selected.</p>
+
+        <button class="btn btn-primary" popupconfirm="addnewsong">
+          ADD NEW
+        </button>
+        <button class="btn btn-primary" popupconfirm="updatesong">
+          UPDATE
+        </button>
+        <button class="btn btn-primary" popupconfirm="deletesong">
+          DELETE
+        </button>
+      </fieldset>
+    </form>
+
+    <div class="flexbox flexdirec-col">
+      <button class="btn btn-primary" style="width: 20%">SEARCH</button>
+      <br />
+      <div class="table-container">
+        <table id="data-table2">
+          <thead>
+            <tr>
+              <th>Song No.</th>
+              <th>Song Name</th>
+              <th>Genre</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows will be populated here by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      <div id="paginationbtns2" class="pagination">
+        <button class="btn btn-primary prev-page" style="width: 130px">
+          Previous
+        </button>
+        <span class="page-info">Page 1 of 3</span>
+        <button class="btn btn-primary next-page" style="width: 130px">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

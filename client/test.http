@@ -1,0 +1,30 @@
+@host = http://localhost:8000
+
+### Create a new user
+POST {{host}}/api/insertsongs
+
+### Get all users
+GET {{host}}/users
+
+### Get a specific user
+GET {{host}}/users/2
+
+### Update a user (full update)
+PUT {{host}}/users/3
+Content-Type: application/json
+
+{
+    "name": "Bob Ross",
+    "age": 31
+}
+
+### Update a user (partial update)
+PUT {{host}}/users/1
+Content-Type: application/json
+
+{
+    "name": "Alice Johnson"
+}
+
+### Delete a user
+DELETE {{host}}/users/2

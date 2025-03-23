@@ -1,0 +1,20 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "compressed",
+      "extensionName": ".css",
+      "savePath": "/",
+      "savePathReplacementPairs": {
+        "scss": "css"
+      }
+    }
+  ],
+  "liveSassCompile.settings.includeItems": ["/style.scss"],
+  "liveServer.settings.port": 5502
+}
+
+// {
+//   "editor.formatOnSave": false,
+//   "liveServer.settings.port": 5504
+// }
+// be careful of this to avoid modification of html files
