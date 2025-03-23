@@ -48,7 +48,17 @@ async def get_song_settings():
         return settings_entry
 
 
-async def compare_audio(audio1, audio2):
+def calculate_karaoke_score(original_song_path, user_audio_path):
+    original_audio, _ = librosa.load(original_song_path, sr=None, mono=True)
+    user_audio, _ = librosa.load(user_audio_path, sr=None, mono=True)
+
+    # Normalize the audio signals
+    original_audio = (original_audio - np.mean(original_audio)) / np.std(original_audio)
+    user_audio = (user_audio - np.mean(user_audio)) / np.std(user_audio)
+
+    audio1 = original_audio
+    audio2 = user_audio
+
     """
     Compare two audio signals using cosine similarity.
     """
@@ -144,17 +154,10 @@ async def result(file: UploadFile = File(...)):
         raise HTTPException(status_code=404, detail="Original song file not found")
 
     try:
-        original_audio, _ = librosa.load(original_song_path, sr=None, mono=True)
-        user_audio, _ = librosa.load(user_audio_path, sr=None, mono=True)
 
-        # Normalize the audio signals
-        original_audio = (original_audio - np.mean(original_audio)) / np.std(
-            original_audio
+        similarity_percentage = await asyncio.to_thread(
+            calculate_karaoke_score, original_song_path, user_audio_path
         )
-        user_audio = (user_audio - np.mean(user_audio)) / np.std(user_audio)
-
-        # Compare the audio signals
-        similarity_percentage = await compare_audio(original_audio, user_audio)
 
         # Adjust score based on difficulty
         if settings.difficulty == "easy":
@@ -220,7 +223,7 @@ async def result(file: UploadFile = File(...)):
     finally:
         # Clean up the uploaded file
         if os.path.exists(user_audio_path):
-            os.remove(user_audio_path)
+            await asyncio.to_thread(os.remove, user_audio_path)
 
 
 @router.get("/scorevideo")

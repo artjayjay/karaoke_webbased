@@ -126,9 +126,9 @@
     <!-- Buttons -->
     <div class="karaokeplayerbtns flexbox flexdirec-row">
       <button class="btn btn-primary" id="startButton">Start Karaoke</button>
-      <button class="btn btn-primary" onclick="stopVideo()">Stop</button>
-      <button class="btn btn-primary" onclick="loadVideo()">Reload</button>
-      <button class="btn btn-primary" onclick="next()">Next</button>
+      <button class="btn btn-primary" id="stopButton">Stop</button>
+      <button class="btn btn-primary" id="reloadButton">Reload</button>
+      <button class="btn btn-primary" id="nextButton">Next</button>
     </div>
 
     <!-- Modal for Score Display -->
@@ -141,7 +141,7 @@
         <p id="modal-singers-name" style="display: none">
           Singer's Name: <span id="modal-singers-name-value"></span>
         </p>
-        <button onclick="closeModal()">Close</button>
+        <button id="closemodalButton">Close</button>
       </div>
     </div>
 
@@ -402,9 +402,26 @@
 
       // Add event listener to the "Start" button
       document.getElementById("startButton").addEventListener("click", () => {
-        console.log("Start button clicked."); // Debugging
         startPlayback(); // Start playback with sound
       });
+
+      document.getElementById("stopButton").addEventListener("click", () => {
+        stopVideo();
+      });
+
+      document.getElementById("reloadButton").addEventListener("click", () => {
+        loadVideo();
+      });
+
+      document.getElementById("nextButton").addEventListener("click", () => {
+        next();
+      });
+
+      document
+        .getElementById("closemodalButton")
+        .addEventListener("click", () => {
+          closeModal();
+        });
 
       // Automatically load the video and fetch settings when the page loads
       window.onload = async () => {
