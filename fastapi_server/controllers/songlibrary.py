@@ -408,6 +408,15 @@ async def updatesongs(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def delete_song_file(song_directory):
+    # Delete the song directory and its contents if it exists
+    if os.path.exists(song_directory):
+        for file in os.listdir(song_directory):
+            file_path = os.path.join(song_directory, file)
+            os.remove(file_path)
+        os.rmdir(song_directory)
+
+
 # Endpoint to delete songs
 @router.delete("/deletesongs/{songno}")
 async def deletesongs(songno: str):
@@ -415,14 +424,8 @@ async def deletesongs(songno: str):
         # Fetch the song directory
         song_directory = os.path.join("storage", "files", "songs", songno)
 
-        # Delete the song directory and its contents if it exists
-        if os.path.exists(song_directory):
-            for file in os.listdir(song_directory):
-                file_path = os.path.join(song_directory, file)
-                os.remove(file_path)
-            os.rmdir(song_directory)
-
         # Mark the song as disabled in the database
+        await asyncio.to_thread(delete_song_file, song_directory)
         await delete_song(songno)
 
         return JSONResponse(content={"message": "Song deleted successfully"})
