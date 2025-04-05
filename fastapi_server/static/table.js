@@ -200,9 +200,21 @@ function renderTable(
   )}`;
 
   // Enable/disable pagination buttons
-  prevPageButton.disabled = page === 1;
-  nextPageButton.disabled =
-    page === Math.ceil(data[tableschema].length / rowsPerPage);
+  // For previous button
+  if (page === 1) {
+    prevPageButton.disabled = true;
+    callalltablefunctions(page, "decrement");
+  } else {
+    prevPageButton.disabled = false;
+  }
+
+  // For next button
+  if (page === Math.ceil(data[tableschema].length / rowsPerPage)) {
+    nextPageButton.disabled = true;
+    callalltablefunctions(page, "increment");
+  } else {
+    nextPageButton.disabled = false;
+  }
 }
 
 async function paginationbtnfunc(
@@ -227,4 +239,21 @@ async function paginationbtnfunc(
       renderTable(page, tableschema, tablebdy, prevpgbtn, nextpgbtn, pageinfo);
     }
   });
+}
+
+let serverpage = 1;
+let serverpagesize = 30;
+
+function callalltablefunctions(params, command) {
+  if (params == "table1" && command == "increment") {
+    serverpage += serverpagesize;
+    displaysongtable(serverpage, serverpagesize);
+  }
+  if (params == "table1" && command == "decrement") {
+    serverpage -= serverpagesize;
+    displaysongtable(serverpage, serverpagesize);
+  }
+  if (serverpage <= 0) {
+    serverpage = 1;
+  }
 }

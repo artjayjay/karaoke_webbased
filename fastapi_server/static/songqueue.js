@@ -35,10 +35,10 @@ async function initialfetchsongsettings() {
 
 initialfetchsongsettings();
 
-async function displayqueuetable(limit = 10, offset = 1) {
+async function displayqueuetable(serverpage = 1, serverpagesize = 30) {
   try {
     const response = await axios.get(
-      `/api/songqueue/displaysongqueue/${limit}/${offset}`
+      `/api/songqueue/displaysongqueue/${serverpage}/${serverpagesize}`
     );
     const fetchedData = response.data;
 
@@ -68,15 +68,15 @@ async function displayqueuetable(limit = 10, offset = 1) {
   }
 }
 
-async function displaysongtablesearch(limit = 10, offset = 1) {
+async function displaysongtablesearch(serverpage = 1, serverpagesize = 30) {
   let value = document.getElementById("inputsearchid").value;
   if (!value) value = "";
   try {
     const response = await axios.get(`/api/songqueue/displaysongssearch/`, {
       params: {
         searchterm: value, // Pass searchterm as a query parameter
-        limit: limit, // Pass limit as a query parameter
-        offset: offset, // Pass offset as a query parameter
+        serverpage: serverpage, // Pass server paging as a query parameter
+        serverpagesize: serverpagesize, // Pass server page size as a query parameter
       },
     });
     const fetchedData = response.data;

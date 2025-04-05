@@ -1,7 +1,7 @@
-async function displaysongtable(limit = 10, offset = 1) {
+async function displaysongtable(serverpage = 1, serverpagesize = 30) {
   try {
     const response = await axios.get(
-      `/api/songlibrary/displaysongs/${limit}/${offset}`
+      `/api/songlibrary/displaysongs/${serverpage}/${serverpagesize}`
     );
     const fetchedData = response.data;
 

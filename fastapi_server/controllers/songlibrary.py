@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException, File, UploadFile, Form
 from fastapi.responses import JSONResponse
-from sqlmodel import SQLModel, Field, select
+from sqlmodel import SQLModel, Field, select, func
 from models.models import (
     SongLibrary,
     QueueLibrary,
@@ -48,14 +48,14 @@ async def save_uploaded_file_chunked(file: UploadFile, destination: str):
 async def display_songtable(
     column: Optional[str] = None,
     value: Optional[str] = None,
-    limit: int = 10,
-    offset: int = 0,
+    server_page: int = 1,
+    server_page_size: int = 30,
 ):
     async with AsyncSessionLocal() as session:
-        # Start with a base query to exclude disabled records
+        server_offset = (server_page - 1) * server_page_size
+
         statement = select(SongLibrary).where(SongLibrary.disabled == False)
 
-        # Apply the filter if column and value are provided
         if column and value:
             if column == "songno":
                 condition = SongLibrary.songno == value
@@ -69,28 +69,39 @@ async def display_songtable(
                 condition = SongLibrary.album == value
             else:
                 print(f"Invalid column: {column}")
-                return None  # Return None if the column is invalid
-
+                return None
             statement = statement.where(condition)
 
-        # Apply pagination (limit and offset)
-        statement = statement.limit(limit).offset(offset)
+        count_stmt = (
+            select(func.count())
+            .select_from(SongLibrary)
+            .where(SongLibrary.disabled == False)
+        )
+        total_count = (await session.execute(count_stmt)).scalar()
 
-        # Execute the query
-        result = await session.execute(statement)  # Fixed: Use execute instead of exec
-        songs = result.scalars().all()  # Use scalars() to get model instances
+        remaining_records = total_count - server_offset
+        actual_page_size = (
+            min(server_page_size, remaining_records) if remaining_records > 0 else 0
+        )
 
-        # Convert songs to a list of dictionaries
-        songs_dict = [
-            {
-                "songno": song.songno,
-                "songname": song.songname,
-                "genre": song.genre,
-                "artist": song.artist,
-                "album": song.album,
-            }
-            for song in songs
-        ]
+        songs_dict = []
+        if actual_page_size > 0:
+            statement = statement.limit(actual_page_size).offset(server_offset)
+            result = await session.execute(statement)
+            songs = result.scalars().all()
+
+            songs_dict = [
+                {
+                    "songno": song.songno,
+                    "songname": song.songname,
+                    "genre": song.genre,
+                    "artist": song.artist,
+                    "album": song.album,
+                }
+                for song in songs
+            ]
+
+        # Maintaining your original return structure
         return songs_dict
 
 
@@ -233,19 +244,36 @@ async def delete_song(songno: str):
                 raise Exception("Song not found")
 
     except Exception as e:
-        print("................ ", e)
+        print(e)
 
 
 # Endpoint to display songs
-@router.get("/displaysongs/{limit}/{offset}")
-async def displaysongs(limit: int, offset: int):
-    if offset <= 0:
-        offset = 0
-    if offset > 0:
-        offset = offset - 1
+@router.get("/displaysongs/{server_page}/{server_page_size}")
+async def displaysongs(
+    server_page: int,
+    server_page_size: int,
+    column: Optional[str] = None,
+    value: Optional[str] = None,
+):
     try:
-        songsdata = await display_songtable(limit=limit, offset=offset)
-        return JSONResponse(content={"songs": songsdata})
+        if server_page_size <= 0 or server_page_size > 100:
+            raise HTTPException(
+                status_code=400, detail="Page size must be between 1 and 100"
+            )
+
+        songs_data = await display_songtable(
+            server_page=server_page,
+            server_page_size=server_page_size,
+            column=column,
+            value=value,
+        )
+
+        if songs_data is None:
+            raise HTTPException(status_code=400, detail="Invalid parameters")
+
+        # Your original return format
+        return JSONResponse(content={"songs": songs_data})
+
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
