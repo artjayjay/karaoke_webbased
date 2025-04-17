@@ -339,19 +339,27 @@ async def insertsongs(
 
         # Fetch the last inserted song to get the songno
         async with AsyncSessionLocal() as session:
+            # This query needs to match exactly the song we just inserted
+            # We'll find it by matching all the fields we just inserted
             statement = (
                 select(SongLibrary)
-                .where(SongLibrary.disabled == False)  # Only consider active songs
+                .where(SongLibrary.songname == songname)
+                .where(SongLibrary.genre == genre)
+                .where(SongLibrary.artist == artist)
+                .where(SongLibrary.album == album)
+                .where(SongLibrary.disabled == False)
                 .order_by(SongLibrary.songno.desc())
                 .limit(1)
             )
             result = await session.execute(statement)
-            last_song = result.scalars().first()
+            inserted_song = result.scalars().first()
 
-            if last_song:
-                songno = last_song.songno
+            if inserted_song:
+                songno = inserted_song.songno
                 # Create a directory named after the songno
                 song_directory = os.path.join("storage", "files", "songs", songno)
+
+                # Ensure the directory exists (delete if it exists and recreate)
                 await asyncio.to_thread(recreate_directory, song_directory)
 
                 # Determine the file types and save them with appropriate names
@@ -377,7 +385,7 @@ async def insertsongs(
                 )
             else:
                 raise HTTPException(
-                    status_code=500, detail="Failed to retrieve the last inserted song"
+                    status_code=500, detail="Failed to retrieve the inserted song"
                 )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
