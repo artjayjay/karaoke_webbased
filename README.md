@@ -23,3 +23,5 @@ There is as also an option to update score background either using video or pict
 and also applause sound
 2 servers name can be change one is for main server which is the main karaoke app and second is karaoke player
 to save the changes just click save settings button
+![settings1](https://github.com/user-attachments/assets/e7e4501b-a941-4b91-a791-c9895f7498f3)
+![settings2](https://github.com/user-attachments/assets/e6006b0c-b17a-4d65-a7b9-de00579ab6d5)
