@@ -1,5 +1,7 @@
 # Web Based Karaoke
 How to Use?
+to run use vscode and make sure the python is already installed to the machine or docker
+then cd to the fastapiserver directory then run "python app.py"
 this is the dashboard of the app below
 ![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
 When clicking search on dashboard this will pop up below
