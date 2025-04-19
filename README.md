@@ -12,3 +12,8 @@ This is the song library tab below
 ![songlibrary1](https://github.com/user-attachments/assets/9fab59da-c9d3-49a5-b0ea-7e99012016cb)
 To add new song input all details on song data form below
 ![songlibrary1](https://github.com/user-attachments/assets/d8c29d2d-496c-46a3-883d-09b37806585c)
+Then click add new button to save to the server the song details
+To update or delete just use update button and delete button
+![songlibrary2](https://github.com/user-attachments/assets/1c429385-bf29-4082-ba2d-2f923e798fa4)
+To select genre just click dropdown shown below
+![songlibrary3](https://github.com/user-attachments/assets/488eb0e3-c802-42fe-b792-91948d0ab797)
