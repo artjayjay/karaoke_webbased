@@ -1,4 +1,5 @@
 # Karaoke Web Based
+<<<<<<< HEAD
 
 ## A fully functional karaoke project written in python(fastapi).
 
@@ -74,6 +75,76 @@ Access in your browser:
 ## Screenshots
 
 Dashboard
+=======
+## A fully functional karaoke project written in python(fastapi).
+
+This project is a web based karaoke system with scoring and difficulty settings.
+
+The list below is the functions of the project
+
+Core functions
+
+* song player with audio similarity function
+
+Other functions
+
+* song queue for managing song queues to be played
+* song library used to manage songs updating deleting song list
+* settings for managing karaoke player configuration
+## Prerequisites
+* vscode must be installed
+* python must already been installed make sure the env variables are added
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/artjayjay/karaoke_webbased
+```
+
+Go to the project directory when opened in vscode
+
+```bash
+  cd fastapi_server
+```
+
+Install dependencies
+
+```bash
+  pip install -r requirements.txt
+```
+
+requirements.txt information below
+
+package1==2.0.1  
+package2>=2.26.0  
+package3  
+package4~=1.3.0  
+package5<4.0.0
+
+...
+
+just install all package that was missing when running the app
+
+Start the server
+
+```bash
+  python app.py
+```
+## How to use
+* put localhost:8000 to browser url
+* localhost:8000 <== this is a main server
+* localhost:8000/karaokeplayer <== this is a karaokeplayer to another tab
+server1 <= use to input main server and server2 for karaokeplayer server
+
+
+
+to run use vscode and make sure the python is already installed to the machine or docker
+then cd to the fastapiserver directory then run "python app.py"  
+this is the dashboard of the app below
+>>>>>>> 61810e45895bceef2c34b04d918ae583c855f16e
 ![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
 When clicking search on dashboard this will pop up below
 ![dashboard2](https://github.com/user-attachments/assets/e8b2a309-1583-4e97-a783-a3328ddfbbc5)
