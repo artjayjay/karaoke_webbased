@@ -98,7 +98,7 @@ Access in your browser:
 
 #### Interested in this project or my work? Reach out:
 
-📧 Email: [arturomeprof@gmail.com]
-📘 Facebook: [https://web.facebook.com/profile.php?id=100090357955967]
-📸 Instagram: [https://www.instagram.com/arturomeprof?igsh=NG9iOW0zNDE4eTZn]
+📧 Email: [arturomeprof@gmail.com]  
+📘 Facebook: [https://web.facebook.com/profile.php?id=100090357955967]  
+📸 Instagram: [https://www.instagram.com/arturomeprof?igsh=NG9iOW0zNDE4eTZn]  
 💼 LinkedIn: [https://linkedin.com/in/arturo-dela-cruz-464b58271]
