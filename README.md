@@ -78,16 +78,18 @@ Access in your browser:
 
 ![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
 
-### Song Search
+#### Song Search
 
 ![dashboard2](https://github.com/user-attachments/assets/e8b2a309-1583-4e97-a783-a3328ddfbbc5)
 
+#### Queue Management
+
 ![dashboard3](https://github.com/user-attachments/assets/ed562414-fa02-4f29-bd88-304172228429)
-![dashboard4](https://github.com/user-attachments/assets/64d71e0d-babb-4e72-a821-927bffe11fb5)
+
+#### Song Library
 
 ![songlibrary1](https://github.com/user-attachments/assets/9fab59da-c9d3-49a5-b0ea-7e99012016cb)
-![songlibrary1](https://github.com/user-attachments/assets/d8c29d2d-496c-46a3-883d-09b37806585c)
-![songlibrary2](https://github.com/user-attachments/assets/1c429385-bf29-4082-ba2d-2f923e798fa4)
-![songlibrary3](https://github.com/user-attachments/assets/488eb0e3-c802-42fe-b792-91948d0ab797)
+
+#### Settings
+
 ![settings1](https://github.com/user-attachments/assets/e7e4501b-a941-4b91-a791-c9895f7498f3)
-![settings2](https://github.com/user-attachments/assets/e6006b0c-b17a-4d65-a7b9-de00579ab6d5)
