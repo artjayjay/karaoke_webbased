@@ -94,7 +94,7 @@ Access in your browser:
 
 ![settings1](https://github.com/user-attachments/assets/e7e4501b-a941-4b91-a791-c9895f7498f3)
 
-## Contact
+## 📩 Contact
 
 #### Interested in this project or my work? Reach out:
 
