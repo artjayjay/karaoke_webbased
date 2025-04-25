@@ -22,7 +22,7 @@ To select genre just click dropdown shown below
 ![songlibrary3](https://github.com/user-attachments/assets/488eb0e3-c802-42fe-b792-91948d0ab797)
 This is the settings below to edit if you can enable disable option to show karaoke score
 and singers name  
-There is as also an option to update score background either using video or picture itself  
+There is as also an option to update score background either using video or picture itself
 and also applause sound  
 2 servers name can be change one is for main server which is the main karaoke app and second is karaoke player  
 to save the changes just click save settings button
