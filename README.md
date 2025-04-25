@@ -75,8 +75,7 @@ Access in your browser:
 ## Screenshots
 
 dashboard
-
-<!-- ![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
+![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
 
 ![dashboard2](https://github.com/user-attachments/assets/e8b2a309-1583-4e97-a783-a3328ddfbbc5)
 
@@ -88,4 +87,4 @@ dashboard
 ![songlibrary2](https://github.com/user-attachments/assets/1c429385-bf29-4082-ba2d-2f923e798fa4)
 ![songlibrary3](https://github.com/user-attachments/assets/488eb0e3-c802-42fe-b792-91948d0ab797)
 ![settings1](https://github.com/user-attachments/assets/e7e4501b-a941-4b91-a791-c9895f7498f3)
-![settings2](https://github.com/user-attachments/assets/e6006b0c-b17a-4d65-a7b9-de00579ab6d5) -->
+![settings2](https://github.com/user-attachments/assets/e6006b0c-b17a-4d65-a7b9-de00579ab6d5)
