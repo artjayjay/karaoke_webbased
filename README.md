@@ -74,8 +74,11 @@ Access in your browser:
 
 ## Screenshots
 
-dashboard
+### Dashboard
+
 ![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
+
+### Song Search
 
 ![dashboard2](https://github.com/user-attachments/assets/e8b2a309-1583-4e97-a783-a3328ddfbbc5)
 
