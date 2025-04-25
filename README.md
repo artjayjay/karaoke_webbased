@@ -41,7 +41,7 @@ Other functions
   pip install -r requirements.txt
 ```
 
-Note: The requirements.txt includes packages like:
+_Note:_ The requirements.txt includes packages like:
 
 package1==2.0.1  
 package2>=2.26.0  
@@ -66,7 +66,7 @@ Access in your browser:
 - Main server: localhost:8000
 - Karaoke player: localhost:8000/karaokeplayer (open in separate tab)
 
-  Note:
+  _Note:_
 
 - server1 = Main server
 
