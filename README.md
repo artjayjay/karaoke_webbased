@@ -4,7 +4,7 @@
 
 This project is a web based karaoke system with scoring and difficulty settings.
 
-## Features
+## ✨ Features
 
 Core functions
 
@@ -16,12 +16,12 @@ Other functions
 - Song library for managing songs (add/update/delete)
 - Settings for karaoke player configuration
 
-## Prerequisites
+## 🎯 Prerequisites
 
 - VSCode installed
 - Python installed (with environment variables configured)
 
-## Installation
+## 🛠️ Installation
 
 1. Clone the project
 
@@ -59,7 +59,7 @@ Install any missing packages that appear when running the app.
   python app.py
 ```
 
-## Usage
+## 🚀 Usage
 
 Access in your browser:
 
@@ -72,7 +72,7 @@ Access in your browser:
 
 - server2 = Karaoke player server
 
-## Screenshots
+## 📸 Screenshots
 
 #### Dashboard
 
