@@ -1,9 +1,79 @@
-# Web Based Karaoke
+# Karaoke Web Based
 
-How to Use?  
-to run use vscode and make sure the python is already installed to the machine or docker
-then cd to the fastapiserver directory then run "python app.py"  
-this is the dashboard of the app below
+## A fully functional karaoke project written in python(fastapi).
+
+This project is a web based karaoke system with scoring and difficulty settings.
+
+## Features
+
+Core functions
+
+- Song player with audio similarity function
+
+Other functions
+
+- Song queue for managing upcoming songs
+- Song library for managing songs (add/update/delete)
+- Settings for karaoke player configuration
+
+## Prerequisites
+
+- VSCode installed
+- Python installed (with environment variables configured)
+
+## Installation
+
+1. Clone the project
+
+```bash
+  git clone https://github.com/artjayjay/karaoke_webbased
+```
+
+2. Navigate to project directory
+
+```bash
+  cd fastapi_server
+```
+
+3. Install dependencies
+
+```bash
+  pip install -r requirements.txt
+```
+
+Note: The requirements.txt includes packages like:
+
+package1==2.0.1  
+package2>=2.26.0  
+package3  
+package4~=1.3.0  
+package5<4.0.0
+
+...
+
+Install any missing packages that appear when running the app.
+
+4. Start the server
+
+```bash
+  python app.py
+```
+
+## Usage
+
+Access in your browser:
+
+- Main server: localhost:8000
+- Karaoke player: localhost:8000/karaokeplayer (open in separate tab)
+  Note:
+
+- server1 = Main server
+
+- server2 = Karaoke player server
+
+## Screenshots
+
+Dashboard
 ![dashboard1](https://github.com/user-attachments/assets/b102cf43-c583-4724-8d15-793195442570)
 When clicking search on dashboard this will pop up below
 ![dashboard2](https://github.com/user-attachments/assets/e8b2a309-1583-4e97-a783-a3328ddfbbc5)
