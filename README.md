@@ -93,3 +93,12 @@ Access in your browser:
 #### Settings
 
 ![settings1](https://github.com/user-attachments/assets/e7e4501b-a941-4b91-a791-c9895f7498f3)
+
+## Contact
+
+#### Interested in this project or my work? Reach out:
+
+📧 Email: [arturomeprof@gmail.com]
+📘 Facebook: [https://web.facebook.com/profile.php?id=100090357955967]
+📸 Instagram: [https://www.instagram.com/arturomeprof?igsh=NG9iOW0zNDE4eTZn]
+💼 LinkedIn: [https://linkedin.com/in/arturo-dela-cruz-464b58271]
