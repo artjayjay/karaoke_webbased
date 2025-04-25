@@ -20,7 +20,7 @@ To update or delete just use update button and delete button
 ![songlibrary2](https://github.com/user-attachments/assets/1c429385-bf29-4082-ba2d-2f923e798fa4)
 To select genre just click dropdown shown below
 ![songlibrary3](https://github.com/user-attachments/assets/488eb0e3-c802-42fe-b792-91948d0ab797)
-This is the settings below to edit if you can enable disable option to show karaoke score  
+This is the settings below to edit if you can enable disable option to show karaoke score
 and singers name  
 There is as also an option to update score background either using video or picture itself  
 and also applause sound  
